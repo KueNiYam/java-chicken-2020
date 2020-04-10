@@ -3,19 +3,19 @@ package domain;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class WishList {
+public class Order {
 	private final Map<Menu, Integer> wishList;
 
-	private WishList(final Map<Menu, Integer> wishList) {
+	private Order(final Map<Menu, Integer> wishList) {
 		this.wishList = wishList;
 	}
 
-	public static WishList create() {
+	public static Order create() {
 		final Map<Menu, Integer> wishList = new LinkedHashMap<>();
 		for (Menu menu : MenuRepository.menus()) {
 			wishList.put(menu, 0);
 		}
-		return new WishList(wishList);
+		return new Order(wishList);
 	}
 
 	public void add(final Menu menu, final int i) {
