@@ -88,5 +88,8 @@ class OrderTest {
 	}
 
 	@Test
-	@DisplayName("")
+	@DisplayName("현금 할인")
+	void computeCashDiscount() {
+		assertThat(order.computeCashDiscount(10_000)).isEqualTo(10_000 * 0.95);
+	}
 }

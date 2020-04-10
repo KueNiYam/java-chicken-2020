@@ -7,6 +7,7 @@ public class Order {
 	private static final int ZERO = 0;
 	private static final int CHICKEN_NUMBER_FOR_DISCOUNT = 10;
 	private static final int CHICKEN_DISCOUNT_PRICE = 10_000;
+	private static final double CASH_DISCOUNT_RATIO = 0.05;
 	private final Map<Menu, OrderNumber> wishList;
 
 	private Order(final Map<Menu, OrderNumber> wishList) {
@@ -37,12 +38,12 @@ public class Order {
 		return result;
 	}
 
-	public double computeChickenDiscount(final double simpleSum) {
+	public double computeChickenDiscount(final double price) {
 		final int chicken = countChicken();
 		final int discountNum = chicken / CHICKEN_NUMBER_FOR_DISCOUNT;
 		final double discountPrice = discountNum * CHICKEN_DISCOUNT_PRICE;
 
-		return simpleSum - discountPrice;
+		return price - discountPrice;
 	}
 
 	private int countChicken() {
@@ -58,5 +59,9 @@ public class Order {
 			return entry.getValue().getInt();
 		}
 		return ZERO;
+	}
+
+	public double computeCashDiscount(final double price) {
+		return price - price * CASH_DISCOUNT_RATIO;
 	}
 }
