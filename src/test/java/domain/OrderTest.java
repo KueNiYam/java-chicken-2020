@@ -51,8 +51,42 @@ class OrderTest {
 	}
 
 	@Test
-	@DisplayName("현금 가격")
-	void computePriceOfCash() {
-		assertThat(order.computePriceOfCash()).isEqualTo(0);
+	@DisplayName("아무것도 안 샀을 때 단순 가격 합")
+	void simplySumPrice_NotThing() {
+		assertThat(order.simplySumPrice()).isEqualTo(0);
 	}
+
+	@Test
+	@DisplayName("3개 샀을 때 단순 가격 합")
+	void simplySumPrice_NotChickenDiscount() {
+		order.add(MenuRepository.findMenuByNumber(1), new OrderNumber(1));
+		order.add(MenuRepository.findMenuByNumber(2), new OrderNumber(1));
+		order.add(MenuRepository.findMenuByNumber(3), new OrderNumber(1));
+
+		assertThat(order.simplySumPrice()).isEqualTo(16_000 * 3);
+	}
+
+	@Test
+	@DisplayName("15개 샀을 때 치킨 10개 할인 적용")
+	void computeChickenDiscount() {
+		order.add(MenuRepository.findMenuByNumber(1), new OrderNumber(5));
+		order.add(MenuRepository.findMenuByNumber(2), new OrderNumber(5));
+		order.add(MenuRepository.findMenuByNumber(3), new OrderNumber(5));
+
+		double simpleSum = order.simplySumPrice();
+		assertThat(order.computeChickenDiscount(simpleSum)).isEqualTo(16_000 * 15 - 10000);
+	}
+
+	@Test
+	@DisplayName("치킨 9개 음료 1개는 적용 안 됨")
+	void computeChickenDiscount_OneBeverageNineChicken() {
+		order.add(MenuRepository.findMenuByNumber(1), new OrderNumber(9));
+		order.add(MenuRepository.findMenuByNumber(22), new OrderNumber(1));
+
+		double simpleSum = order.simplySumPrice();
+		assertThat(order.computeChickenDiscount(simpleSum)).isEqualTo(16_000 * 9 + 1_000);
+	}
+
+	@Test
+	@DisplayName("")
 }

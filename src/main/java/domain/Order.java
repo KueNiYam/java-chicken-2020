@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class Order {
 	private static final int ZERO = 0;
+	private static final int CHICKEN_NUMBER_FOR_DISCOUNT = 10;
+	private static final int CHICKEN_DISCOUNT_PRICE = 10_000;
 	private final Map<Menu, OrderNumber> wishList;
 
 	private Order(final Map<Menu, OrderNumber> wishList) {
@@ -27,7 +29,34 @@ public class Order {
 		return wishList;
 	}
 
-	public int computePriceOfCash() {
-		return 0;
+	public double simplySumPrice() {
+		double result = ZERO;
+		for (Map.Entry<Menu, OrderNumber> entry : wishList.entrySet()) {
+			result += entry.getKey().computePriceOfNumber(entry.getValue());
+		}
+		return result;
+	}
+
+	public double computeChickenDiscount(final double simpleSum) {
+		final int chicken = countChicken();
+		final int discountNum = chicken / CHICKEN_NUMBER_FOR_DISCOUNT;
+		final double discountPrice = discountNum * CHICKEN_DISCOUNT_PRICE;
+
+		return simpleSum - discountPrice;
+	}
+
+	private int countChicken() {
+		int chicken = ZERO;
+		for (Map.Entry<Menu, OrderNumber> entry : wishList.entrySet()) {
+			chicken += countChickForEntry(entry);
+		}
+		return chicken;
+	}
+
+	private int countChickForEntry(final Map.Entry<Menu, OrderNumber> entry) {
+		if (entry.getKey().isChicken()) {
+			return entry.getValue().getInt();
+		}
+		return ZERO;
 	}
 }

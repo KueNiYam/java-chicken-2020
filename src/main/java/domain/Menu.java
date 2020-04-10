@@ -15,8 +15,20 @@ public class Menu {
         this.price = price;
     }
 
+    public double computePriceOfNumber(final OrderNumber orderNumber) {
+        return price * orderNumber.getInt();
+    }
+
     public boolean isNumber(final int number) {
         return this.number == number;
+    }
+
+    public boolean isChicken() {
+        return category == Category.CHICKEN;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
     @Override

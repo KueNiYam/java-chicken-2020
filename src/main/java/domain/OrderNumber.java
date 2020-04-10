@@ -25,6 +25,10 @@ public class OrderNumber {
 		return new OrderNumber(orderNumber + other.orderNumber);
 	}
 
+	public int getInt() {
+		return orderNumber;
+	}
+
 	@Override
 	public boolean equals(final Object o) {
 		if (this == o) return true;
