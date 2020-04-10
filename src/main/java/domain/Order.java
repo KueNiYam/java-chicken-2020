@@ -14,7 +14,7 @@ public class Order {
 		this.wishList = wishList;
 	}
 
-	public static Order create() {
+	public static Order ofMenus() {
 		final Map<Menu, OrderNumber> wishList = new LinkedHashMap<>();
 		for (Menu menu : MenuRepository.menus()) {
 			wishList.put(menu, new OrderNumber(ZERO));

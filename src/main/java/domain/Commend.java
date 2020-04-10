@@ -21,4 +21,13 @@ public enum Commend {
 				.findFirst()
 				.orElseThrow(IllegalArgumentException::new);
 	}
+
+	public int getNumber() {
+		return number;
+	}
+
+
+	public String getMessage() {
+		return message;
+	}
 }

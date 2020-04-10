@@ -1,11 +1,13 @@
 package view;
 
+import domain.Commend;
 import domain.Menu;
 import domain.Table;
 
 import java.util.List;
 
 public class OutputView {
+    private static final String STICK_SEPERATOR = " - ";
     private static final String TOP_LINE = "┌ ─ ┐";
     private static final String TABLE_FORMAT = "| %s |";
     private static final String BOTTOM_LINE = "└ ─ ┘";
@@ -36,5 +38,12 @@ public class OutputView {
             System.out.printf(TABLE_FORMAT, table);
         }
         System.out.println();
+    }
+
+    public static void printMain() {
+        System.out.println("## 메인화면");
+        for (Commend value : Commend.values()) {
+            System.out.println(value.getNumber() + STICK_SEPERATOR + value.getMessage());
+        }
     }
 }

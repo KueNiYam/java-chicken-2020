@@ -15,7 +15,7 @@ class OrderTest {
 
 	@BeforeEach
 	void setUp() {
-		order = Order.create();
+		order = Order.ofMenus();
 		menu  = MenuRepository.menus().get(0);
 	}
 
