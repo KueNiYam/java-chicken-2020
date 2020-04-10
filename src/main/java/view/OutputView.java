@@ -62,6 +62,6 @@ public class OutputView {
 
 	public static void printFinalAmount(final double finalAmount) {
 		System.out.println("## 최종 결제할 금액");
-		System.out.println(Integer.parseInt(String.valueOf(finalAmount)) + "원");
+		System.out.println((int) finalAmount + "원");
 	}
 }
