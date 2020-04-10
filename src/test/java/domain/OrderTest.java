@@ -49,4 +49,10 @@ class OrderTest {
 		order.add(menu, new OrderNumber(1));
 		assertThat(order.getWishList().get(menu)).isEqualTo(new OrderNumber(2));
 	}
+
+	@Test
+	@DisplayName("현금 가격")
+	void computePriceOfCash() {
+		assertThat(order.computePriceOfCash()).isEqualTo(0);
+	}
 }

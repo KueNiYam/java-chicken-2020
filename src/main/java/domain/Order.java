@@ -26,4 +26,8 @@ public class Order {
 	public Map<Menu, OrderNumber> getWishList() {
 		return wishList;
 	}
+
+	public int computePriceOfCash() {
+		return 0;
+	}
 }
