@@ -19,11 +19,17 @@ public class Application {
             register();
         }
         if (Commend.ofNumber(commendNumber) == Commend.PAY) {
-
+            final Table table = selectTable();
+            pay(table);
         }
         if (Commend.ofNumber(commendNumber) == Commend.EXIT) {
             System.exit(0);
         }
+    }
+
+    private static int start() {
+        OutputView.printMain();
+        return InputView.inputCommendNumber();
     }
 
     private static void register() {
@@ -47,8 +53,20 @@ public class Application {
         order.add(MenuRepository.findMenuByNumber(menuNumber), new OrderQuantity(quantity));
     }
 
-    private static int start() {
-        OutputView.printMain();
-        return InputView.inputCommendNumber();
+    private static void pay(final Table table) {
+        OutputView.printOrder(orders.getOrderOfTable(table));
+        final Order order = orders.getOrderOfTable(table);
+        double finalAmount = computeFinalAmount(order);
+        OutputView.printFinalAmount(finalAmount);
+    }
+
+    private static double computeFinalAmount(final Order order) {
+        final double simpleAmount = order.simplySumPrice();
+        final double chickenDiscountedAmount = order.computeChickenDiscount(simpleAmount);
+        final int cardOrCash = InputView.inputCardOrCash();
+        if (cardOrCash == 2) {
+            return order.computeCashDiscount(chickenDiscountedAmount);
+        }
+        return chickenDiscountedAmount;
     }
 }

@@ -28,7 +28,7 @@ class OrderTest {
 	@Test
 	@DisplayName("모든 메뉴 키가 있는지 테스트")
 	void create_HasAllMenusKey() {
-		final List<Menu> keys = new ArrayList<>(order.getWishList()
+		final List<Menu> keys = new ArrayList<>(order.getOrder()
 				.keySet());
 		final List<Menu> menus = MenuRepository.menus();
 
@@ -39,7 +39,7 @@ class OrderTest {
 	@DisplayName("주문 등록 테스트")
 	void add_register() {
 		order.add(menu, new OrderQuantity(1));
-		assertThat(order.getWishList().get(menu)).isEqualTo(new OrderQuantity(1));
+		assertThat(order.getOrder().get(menu)).isEqualTo(new OrderQuantity(1));
 	}
 
 	@Test
@@ -47,7 +47,7 @@ class OrderTest {
 	void add() {
 		order.add(menu, new OrderQuantity(1));
 		order.add(menu, new OrderQuantity(1));
-		assertThat(order.getWishList().get(menu)).isEqualTo(new OrderQuantity(2));
+		assertThat(order.getOrder().get(menu)).isEqualTo(new OrderQuantity(2));
 	}
 
 	@Test

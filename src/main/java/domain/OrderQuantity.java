@@ -25,6 +25,10 @@ public class OrderQuantity {
 		return new OrderQuantity(orderNumber + other.orderNumber);
 	}
 
+	public boolean isMoreThanZero() {
+		return orderNumber > MIN_NUM;
+	}
+
 	public int getInt() {
 		return orderNumber;
 	}
