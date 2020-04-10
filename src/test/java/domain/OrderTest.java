@@ -38,15 +38,15 @@ class OrderTest {
 	@Test
 	@DisplayName("주문 등록 테스트")
 	void add_register() {
-		order.add(menu, 1);
-		assertThat(order.getWishList().get(menu)).isEqualTo(1);
+		order.add(menu, new OrderNumber(1));
+		assertThat(order.getWishList().get(menu)).isEqualTo(new OrderNumber(1));
 	}
 
 	@Test
 	@DisplayName("주문 추가 테스트")
 	void add() {
-		order.add(menu, 1);
-		order.add(menu, 1);
-		assertThat(order.getWishList().get(menu)).isEqualTo(2);
+		order.add(menu, new OrderNumber(1));
+		order.add(menu, new OrderNumber(1));
+		assertThat(order.getWishList().get(menu)).isEqualTo(new OrderNumber(2));
 	}
 }
