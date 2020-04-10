@@ -15,8 +15,8 @@ public class Menu {
         this.price = price;
     }
 
-    public double computePriceOfNumber(final OrderNumber orderNumber) {
-        return price * orderNumber.getInt();
+    public double computePriceOfNumber(final OrderQuantity orderQuantity) {
+        return price * orderQuantity.getInt();
     }
 
     public boolean isNumber(final int number) {

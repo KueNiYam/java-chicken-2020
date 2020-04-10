@@ -38,16 +38,16 @@ class OrderTest {
 	@Test
 	@DisplayName("주문 등록 테스트")
 	void add_register() {
-		order.add(menu, new OrderNumber(1));
-		assertThat(order.getWishList().get(menu)).isEqualTo(new OrderNumber(1));
+		order.add(menu, new OrderQuantity(1));
+		assertThat(order.getWishList().get(menu)).isEqualTo(new OrderQuantity(1));
 	}
 
 	@Test
 	@DisplayName("주문 추가 테스트")
 	void add() {
-		order.add(menu, new OrderNumber(1));
-		order.add(menu, new OrderNumber(1));
-		assertThat(order.getWishList().get(menu)).isEqualTo(new OrderNumber(2));
+		order.add(menu, new OrderQuantity(1));
+		order.add(menu, new OrderQuantity(1));
+		assertThat(order.getWishList().get(menu)).isEqualTo(new OrderQuantity(2));
 	}
 
 	@Test
@@ -59,9 +59,9 @@ class OrderTest {
 	@Test
 	@DisplayName("3개 샀을 때 단순 가격 합")
 	void simplySumPrice_NotChickenDiscount() {
-		order.add(MenuRepository.findMenuByNumber(1), new OrderNumber(1));
-		order.add(MenuRepository.findMenuByNumber(2), new OrderNumber(1));
-		order.add(MenuRepository.findMenuByNumber(3), new OrderNumber(1));
+		order.add(MenuRepository.findMenuByNumber(1), new OrderQuantity(1));
+		order.add(MenuRepository.findMenuByNumber(2), new OrderQuantity(1));
+		order.add(MenuRepository.findMenuByNumber(3), new OrderQuantity(1));
 
 		assertThat(order.simplySumPrice()).isEqualTo(16_000 * 3);
 	}
@@ -69,9 +69,9 @@ class OrderTest {
 	@Test
 	@DisplayName("15개 샀을 때 치킨 10개 할인 적용")
 	void computeChickenDiscount() {
-		order.add(MenuRepository.findMenuByNumber(1), new OrderNumber(5));
-		order.add(MenuRepository.findMenuByNumber(2), new OrderNumber(5));
-		order.add(MenuRepository.findMenuByNumber(3), new OrderNumber(5));
+		order.add(MenuRepository.findMenuByNumber(1), new OrderQuantity(5));
+		order.add(MenuRepository.findMenuByNumber(2), new OrderQuantity(5));
+		order.add(MenuRepository.findMenuByNumber(3), new OrderQuantity(5));
 
 		double simpleSum = order.simplySumPrice();
 		assertThat(order.computeChickenDiscount(simpleSum)).isEqualTo(16_000 * 15 - 10000);
@@ -80,8 +80,8 @@ class OrderTest {
 	@Test
 	@DisplayName("치킨 9개 음료 1개는 적용 안 됨")
 	void computeChickenDiscount_OneBeverageNineChicken() {
-		order.add(MenuRepository.findMenuByNumber(1), new OrderNumber(9));
-		order.add(MenuRepository.findMenuByNumber(22), new OrderNumber(1));
+		order.add(MenuRepository.findMenuByNumber(1), new OrderQuantity(9));
+		order.add(MenuRepository.findMenuByNumber(22), new OrderQuantity(1));
 
 		double simpleSum = order.simplySumPrice();
 		assertThat(order.computeChickenDiscount(simpleSum)).isEqualTo(16_000 * 9 + 1_000);

@@ -23,4 +23,9 @@ public class Orders {
 	public Set<Table> keySet() {
 		return orders.keySet();
 	}
+
+	public Order getOrderOfTable(final Table table) {
+		return orders.get(table);
+	}
+
 }
